@@ -17,8 +17,8 @@
 \usepgfplotslibrary{external}
 \tikzexternalize
 
-\newcommand{\class}{Number Theory}
-\newcommand{\examnum}{Assignment}
+\newcommand{\class}{Computational Mathematics}
+\newcommand{\examnum}{Homework 0}
 \newcommand{\examdate}{September 3, 2026}
 \newcommand{\timelimit}{}
 
@@ -27,7 +27,8 @@
 \pagestyle{plain}
 \thispagestyle{empty}
 
-\begin{tabular*}{\textwidth}{l @{\extracolsep{\fill}} r @{\extracolsep{6pt}} l}
+\noindent
+\begin{tabular*}{\textwidth}{@{}l@{\extracolsep{\fill}}r@{\hspace{6pt}}l@{}}
 \textbf{\class} & \textbf{Name:} & \textit{Landis Clark} \\
 \textbf{\examnum} & & \\
 \textbf{\examdate} & & \\
@@ -264,3 +265,4 @@ Therefore,
 
 \end{document}
 ```
+x`'
