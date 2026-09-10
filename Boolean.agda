@@ -11,8 +11,8 @@
 -- Hint: If you place the cursor in any hole by typing C-c C-f (Control-c followed by Control-f),
 -- you can type C-c C-, (Control-c followed by Control-comma) to see the type of the hole,
 -- i.e., the proposition you have to prove or the type of the
--- expression you have to write. Moreover, C-c C-, also shows you the
--- current context, i.e., what the types of the relevant variables
+-- expression you have to write. Moreover, C-c C-, also shows you
+-- the current context, i.e., what the types of the relevant variables
 -- are.
 -- 
 -- If you are using Agda Mode for VS Code, viewing the extension page will show you a list of 
@@ -40,23 +40,24 @@ module Boolean where
     -- Identity Function
     -- Returns the input.
     id : Bool → Bool 
-    id b = {!   !}
+    id b = b
 
     -- Not 
     -- Logical Inverse
     -- You will need to pattern match on b.
     not : Bool → Bool 
-    not b = {!   !}
+    not true = false
+    not false = true
 
     -- Constant True 
     -- Always returns true.
     always-true : Bool → Bool 
-    always-true b = {!   !}
+    always-true b = true
 
     -- Constant False 
     -- Always returns false. 
     always-false : Bool → Bool 
-    always-false b = {!   !}
+    always-false b = false
 
     -------------------------------------------------------------
     -- Binary Operations on Booleans
@@ -66,7 +67,8 @@ module Boolean where
     -- pattern match on p only and consider how you could
     -- use the second argument q (Hint: Think about short-circuit evaluation.)
     and : Bool → Bool → Bool 
-    and p q = {!   !}
+    and true q = q
+    and false q = false
 
     -- We can type ∧ with \and 
     -- It is just an alias for our AND function 
@@ -81,7 +83,8 @@ module Boolean where
     -- Again, instead of pattern matching on p and q,
     -- consider how you could pattern match on p and use q.
     or : Bool → Bool → Bool 
-    or p q = {!   !}
+    or true q = true
+    or false q = q
 
     -- We type ∨ with \or 
     -- An alias for our inclusive OR function 
@@ -96,7 +99,8 @@ module Boolean where
     -- You can pattern match completely on p and q 
     -- or try to "short circuit". 
     xor : Bool → Bool → Bool 
-    xor p q = {!   !}
+    xor true q = not q
+    xor false q = q
 
     -- Type ⊕ with \oplus 
     -- Alias for our exclusive OR function 
@@ -137,16 +141,18 @@ module Boolean where
     -- The right-identity of inclusive OR is FALSE. 
     -- Pattern match on b.
     ∨-identr : (b : Bool) → b ∨ false ≡ b 
-    ∨-identr b = {!   !} 
+    ∨-identr true = refl
+    ∨-identr false = refl
 
     -- The left-identity of AND is TRUE. 
     ∧-identl : (b : Bool) → true ∧ b ≡ b 
-    ∧-identl _ = {!   !} 
+    ∧-identl _ = refl 
 
     -- The right-identity of AND is TRUE. 
     -- Pattern match on b. 
     ∧-identr : (b : Bool) → b ∧ true ≡ b 
-    ∧-identr b = {!   !}
+    ∧-identr true = refl
+    ∧-identr false = refl
 
     -- If 0 preserves identity for the addition operation +,
     -- what does it do for the multiplication operation · ? 
@@ -156,24 +162,27 @@ module Boolean where
 
     -- TRUE is the zero element for OR on the left 
     ∨-zerol : (b : Bool) → true ∨ b ≡ true 
-    ∨-zerol b = {!   !}
+    ∨-zerol b = refl
 
     -- TRUE is also the zero element for OR on the right 
     ∨-zeror : (b : Bool) → b ∨ true ≡ true 
-    ∨-zeror b = {!   !}
+    ∨-zeror true = refl
+    ∨-zeror false = refl
 
     -- FALSE is the zero element for AND on the left 
     ∧-zerol : (b : Bool) → false ∧ b ≡ false 
-    ∧-zerol b = {!   !}
+    ∧-zerol b = refl
 
     -- FALSE is also the zero element for AND on the right 
     ∧-zeror : (b : Bool) → b ∧ false ≡ false 
-    ∧-zeror b = {!   !}
+    ∧-zeror true = refl
+    ∧-zeror false = refl
 
     -- An INVOLUTION is a function that is its own inverse. 
     -- Prove that NOT is involutive. 
     not-involutive : ∀ (b : Bool) → not (not b) ≡ b
-    not-involutive b = {!   !}
+    not-involutive true = refl
+    not-involutive false = refl
 
     -- In class we discussed an 'algebra of boolean connectives' and 
     -- identified properties of ∧ and ∨ such as commutative, associative, etc. 
@@ -182,27 +191,61 @@ module Boolean where
 
     -- AND is commutative 
     ∧-comm : (p q : Bool) → p ∧ q ≡ q ∧ p 
-    ∧-comm p q = {!   !}
+    ∧-comm true true = refl
+    ∧-comm true false = refl
+    ∧-comm false true = refl
+    ∧-comm false false = refl
 
     -- OR is commutative     
     ∨-comm : (p q : Bool) → p ∨ q ≡ q ∨ p 
-    ∨-comm p q = {!   !}  
+    ∨-comm true true = refl
+    ∨-comm true false = refl
+    ∨-comm false true = refl
+    ∨-comm false false = refl  
 
     -- AND is associative 
     ∧-assoc : (p q r : Bool) → p ∧ (q ∧ r) ≡ (p ∧ q) ∧ r 
-    ∧-assoc p q r = {!   !}
+    ∧-assoc true true true = refl
+    ∧-assoc true true false = refl
+    ∧-assoc true false true = refl
+    ∧-assoc true false false = refl
+    ∧-assoc false true true = refl
+    ∧-assoc false true false = refl
+    ∧-assoc false false true = refl
+    ∧-assoc false false false = refl
     
     -- OR is associative 
     ∨-assoc : (p q r : Bool) → p ∨ (q ∨ r) ≡ (p ∨ q) ∨ r 
-    ∨-assoc p q r = {!   !}
+    ∨-assoc true true true = refl
+    ∨-assoc true true false = refl
+    ∨-assoc true false true = refl
+    ∨-assoc true false false = refl
+    ∨-assoc false true true = refl
+    ∨-assoc false true false = refl
+    ∨-assoc false false true = refl
+    ∨-assoc false false false = refl
 
     -- AND distributes from the left over OR 
     and-distribl-or : (p q r : Bool) → p ∧ (q ∨ r) ≡ (p ∧ q) ∨ (p ∧ r) 
-    and-distribl-or p q r = {!   !}
+    and-distribl-or true true true = refl
+    and-distribl-or true true false = refl
+    and-distribl-or true false true = refl
+    and-distribl-or true false false = refl
+    and-distribl-or false true true = refl
+    and-distribl-or false true false = refl
+    and-distribl-or false false true = refl
+    and-distribl-or false false false = refl
 
     -- OR distributes from the left over AND 
     or-distribl-and : (p q r : Bool) → p ∨ (q ∧ r) ≡ (p ∨ q) ∧ (p ∨ r) 
-    or-distribl-and p q r = {!   !}
+    or-distribl-and true true true = refl
+    or-distribl-and true true false = refl
+    or-distribl-and true false true = refl
+    or-distribl-and true false false = refl
+    or-distribl-and false true true = refl
+    or-distribl-and false true false = refl
+    or-distribl-and false false true = refl
+    or-distribl-and false false false = refl
 
     -- BUH-BUH-BUH-BUH BOSS BATTLE 
     -- For your final exercises in this lab, define and prove
@@ -210,8 +253,18 @@ module Boolean where
     -- You will need to determine the appropriate types and implement the functions.  
 
     -- demorgan1 : 
+    demorgan1 : (p q : Bool) → not (p ∨ q) ≡ (not p) ∧ (not q)
+    demorgan1 true true = refl
+    demorgan1 true false = refl
+    demorgan1 false true = refl
+    demorgan1 false false = refl
 
     -- demorgan2 : 
+    demorgan2 : (p q : Bool) → not (p ∧ q) ≡ (not p) ∨ (not q)
+    demorgan2 true true = refl
+    demorgan2 true false = refl
+    demorgan2 false true = refl
+    demorgan2 false false = refl
 
 
     --------------------------------------------------------
@@ -222,5 +275,3 @@ module Boolean where
     -- the development of this document.
 
     --------------------------------------------------------
-
-
