@@ -253,19 +253,18 @@ module Boolean where
     -- You will need to determine the appropriate types and implement the functions.  
 
     -- demorgan1 : 
-    demorgan1 : (p q : Bool) → not (p ∨ q) ≡ (not p) ∧ (not q)
+    demorgan1 : (p q : Bool) → not (p ∧ q) ≡ (not p) ∨ (not q)
     demorgan1 true true = refl
     demorgan1 true false = refl
     demorgan1 false true = refl
     demorgan1 false false = refl
 
     -- demorgan2 : 
-    demorgan2 : (p q : Bool) → not (p ∧ q) ≡ (not p) ∨ (not q)
+    demorgan2 : (p q : Bool) → not (p ∨ q) ≡ (not p) ∧ (not q)
     demorgan2 true true = refl
     demorgan2 true false = refl
     demorgan2 false true = refl
     demorgan2 false false = refl
-
 
     --------------------------------------------------------
 
