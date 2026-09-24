@@ -61,8 +61,9 @@ also-two = succ one
 three : Nat 
 three = succ two
 
-four : Nat
-four = succ (succ (succ (succ zero)))
+four : Nat 
+four = succ three
+
 -- Writing out zero and succ can sometimes get annoying during proofs,
 -- so this syntax lets us define synonyms.
 pattern Z = zero 
@@ -83,6 +84,8 @@ pattern S n = succ n
 add : Nat → Nat → Nat 
 add Z y = y
 add (S x) y = S (add x y)
+
+
 -- infix notation for convenience 
 _+_ : Nat → Nat → Nat 
 x + y = add x y 
@@ -102,17 +105,18 @@ zero-add n = refl
 -- f : A -> B, and a proof that x ≡ y.  It produces a proof of f x ≡ f y.
 add-zero : (n : Nat) → n + zero ≡ n 
 add-zero Z = refl
-add-zero (S n) = cong succ (add-zero n)
+add-zero (S n) = cong S (add-zero n)
 
 -- Agda resolves this one automatically by definition (that is, refl)
 succ-add : (x y : Nat) → S x + y ≡ S (x + y) 
-succ-add x y = definition 
+succ-add x y = definition
 
 -- The other direction requires a little work, but not much.
 -- We need to use cong and a recursive call to add-succ after pattern matching on x 
 add-succ : (x y : Nat) → x + S y ≡ S (x + y) 
 add-succ Z y = refl
-add-succ (S x) y = cong succ (add-succ x y)
+add-succ (S x) y = cong S (add-succ x y)
+
 
 
 -- BOSS BATTLE 
@@ -121,17 +125,20 @@ add-succ (S x) y = cong succ (add-succ x y)
 -- Addition is commutative 
 -- Pattern match on x and then use recursion 
 -- You will need to use sym, trans, and cong from the Equality.agda file
-add-comm : (x y : Nat) → x + y ≡ y + x
+add-comm : (x y : Nat) → x + y ≡ y + x 
 add-comm Z y = sym (add-zero y)
 add-comm (S x) y = trans (cong succ (add-comm x y)) (sym (add-succ y x))
+
 -- Addition is Associative 
 -- Pattern match on x and then use recursion 
 -- We will need to use cong
 add-assoc : (x y z : Nat) → (x + y) + z ≡ x + (y + z) 
 add-assoc Z y z = refl
-add-assoc (S x) y z = (cong succ (add-assoc x y z))
+add-assoc (S x) y z = cong succ (add-assoc x y z)
 
 -- Let's try to write an equality that uses both associativity and commutativity 
 add-right-comm : (x y z : Nat) → (x + y) + z ≡ (x + z) + y 
 add-right-comm Z y z = sym (add-comm z y)
 add-right-comm (S x) y z = cong succ (add-right-comm x y z)
+
+
