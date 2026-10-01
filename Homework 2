@@ -15,8 +15,8 @@
 \usetikzlibrary{automata, positioning, arrows}
 \usetikzlibrary{shapes.geometric, intersections}
 
-\newcommand{\class}{Mathematical Reasoning}
-\newcommand{\examnum}{Homework}
+\newcommand{\class}{Computational Mathematics}
+\newcommand{\examnum}{Homework 2}
 \newcommand{\examdate}{09/30/2026}
 \newcommand{\studentname}{Landis Clark}
 
