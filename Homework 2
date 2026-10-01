@@ -1,0 +1,470 @@
+\usepackage{amsthm}
+\usepackage{libertine}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{multicol}
+\usepackage[shortlabels]{enumitem}
+\usepackage{braket}
+\usepackage{siunitx}
+\usepackage{cancel}
+\usepackage{graphicx}
+\usepackage{pgfplots}
+\usepackage{listings}
+\usepackage{tikz}
+\usetikzlibrary{automata, positioning, arrows}
+\usetikzlibrary{shapes.geometric, intersections}
+
+\newcommand{\class}{Mathematical Reasoning}
+\newcommand{\examnum}{Homework}
+\newcommand{\examdate}{09/30/2026}
+\newcommand{\studentname}{Landis Clark}
+
+\pagestyle{headandfoot}
+\firstpageheader{\class}{\studentname}{\examnum}
+\runningheader{\class}{\studentname}{\examnum}
+\firstpagefooter{}{Page \thepage}{}
+\runningfooter{}{Page \thepage}{}
+
+\begin{document}
+
+\begin{center}
+    {\Large \textbf{\class}}\\[4pt]
+    {\large \textbf{\examnum}}\\[4pt]
+    \studentname\\
+    \examdate
+\end{center}
+
+\begin{questions}
+
+% ------------------------------------------------------------
+% 1.4 #1
+% ------------------------------------------------------------
+
+\question \emph{Section 1.4, Exercise 1}
+
+Let
+\[
+A=\{1,3,12,35\},\qquad
+B=\{3,7,12,20\},
+\]
+and let
+\[
+C=\{x\mid x\text{ is a prime number}\}.
+\]
+
+\begin{parts}
+
+\part Find $A\cap B$.
+
+The elements common to both $A$ and $B$ are $3$ and $12$. Therefore,
+\[
+\boxed{A\cap B=\{3,12\}}.
+\]
+
+\part Find $(A\cup B)\setminus C$.
+
+First,
+\[
+A\cup B=\{1,3,7,12,20,35\}.
+\]
+Of these elements, $3$ and $7$ are prime, so they must be removed. Thus,
+\[
+\boxed{(A\cup B)\setminus C=\{1,12,20,35\}}.
+\]
+
+\part Find $A\cup(B\setminus C)$.
+
+The prime elements of $B$ are $3$ and $7$, so
+\[
+B\setminus C=\{12,20\}.
+\]
+Therefore,
+\[
+A\cup(B\setminus C)
+=\{1,3,12,35\}\cup\{12,20\}
+=\boxed{\{1,3,12,20,35\}}.
+\]
+
+\part Are any of the sets listed above disjoint? Are any subsets of another?
+
+The sets $\{3,12\}$ and $\{1,12,20,35\}$ are not disjoint because they both contain $12$.
+The set $\{1,12,20,35\}$ and $\{1,3,12,20,35\}$ are not disjoint because they have several elements in common.
+
+Also,
+\[
+\{1,12,20,35\}\subseteq\{1,3,12,20,35\}.
+\]
+Thus, the second set is a subset of the third set.
+
+\end{parts}
+
+% ------------------------------------------------------------
+% 1.4 #8
+% ------------------------------------------------------------
+
+\question \emph{Section 1.4, Exercise 8}
+
+Verify the following set identities.
+
+\begin{parts}
+
+\part
+\[
+(A\setminus B)\cap C=(A\cap C)\setminus B.
+\]
+
+Let $x$ be an arbitrary element. Then
+\[
+\begin{aligned}
+x\in(A\setminus B)\cap C
+&\iff x\in A\setminus B\text{ and }x\in C\\
+&\iff (x\in A\text{ and }x\notin B)\text{ and }x\in C\\
+&\iff x\in A\text{ and }x\in C\text{ and }x\notin B\\
+&\iff x\in A\cap C\text{ and }x\notin B\\
+&\iff x\in(A\cap C)\setminus B.
+\end{aligned}
+\]
+Since an arbitrary element belongs to the left-hand side exactly when it belongs to the right-hand side,
+\[
+\boxed{(A\setminus B)\cap C=(A\cap C)\setminus B}.
+\]
+
+\part
+\[
+(A\cap B)\setminus B=\varnothing.
+\]
+
+If $x\in(A\cap B)\setminus B$, then $x\in A\cap B$ and $x\notin B$.
+But $x\in A\cap B$ implies $x\in B$. Thus we would have both
+\[
+x\in B\qquad\text{and}\qquad x\notin B,
+\]
+which is impossible. Therefore, there are no elements in $(A\cap B)\setminus B$, so
+\[
+\boxed{(A\cap B)\setminus B=\varnothing}.
+\]
+
+\part
+\[
+A\setminus(A\setminus B)=A\cap B.
+\]
+
+Let $x$ be an arbitrary element. Then
+\[
+\begin{aligned}
+x\in A\setminus(A\setminus B)
+&\iff x\in A\text{ and }x\notin(A\setminus B)\\
+&\iff x\in A\text{ and }\neg(x\in A\text{ and }x\notin B)\\
+&\iff x\in A\text{ and }(x\notin A\text{ or }x\in B)\\
+&\iff x\in A\text{ and }x\in B\\
+&\iff x\in A\cap B.
+\end{aligned}
+\]
+Therefore,
+\[
+\boxed{A\setminus(A\setminus B)=A\cap B}.
+\]
+
+\end{parts}
+
+% ------------------------------------------------------------
+% 1.4 #14
+% ------------------------------------------------------------
+
+\question \emph{Section 1.4, Exercise 14}
+
+Use Venn diagrams to show the associative law for symmetric difference:
+\[
+A\triangle(B\triangle C)=(A\triangle B)\triangle C.
+\]
+
+Recall that $A\triangle B$ consists of the elements that belong to exactly one of $A$ and $B$.
+
+A three-set Venn diagram can be divided into eight regions. The regions that belong to either side of the equation are precisely those in which an odd number of the sets $A,B,C$ contain the element. Thus, both sides shade the same four regions.
+
+\begin{center}
+\begin{tikzpicture}[scale=1.05]
+    % Left diagram
+    \begin{scope}
+        \draw (-1.7,-1.4) rectangle (1.7,1.4);
+        \draw (-0.55,0) circle (0.9);
+        \draw (0.55,0) circle (0.9);
+        \draw (0,0.65) circle (0.9);
+
+        \node at (-0.95,-1.15) {$A$};
+        \node at (0.95,-1.15) {$B$};
+        \node at (0,1.35) {$C$};
+
+        % Labels for odd-membership regions
+        \node at (-0.55,-0.18) {$1$};
+        \node at (0.55,-0.18) {$1$};
+        \node at (0,0.78) {$1$};
+        \node at (0,-0.05) {$1$};
+
+        \node at (0,-1.8) {$A\triangle(B\triangle C)$};
+    \end{scope}
+
+    % Right diagram
+    \begin{scope}[xshift=4.4cm]
+        \draw (-1.7,-1.4) rectangle (1.7,1.4);
+        \draw (-0.55,0) circle (0.9);
+        \draw (0.55,0) circle (0.9);
+        \draw (0,0.65) circle (0.9);
+
+        \node at (-0.95,-1.15) {$A$};
+        \node at (0.95,-1.15) {$B$};
+        \node at (0,1.35) {$C$};
+
+        \node at (-0.55,-0.18) {$1$};
+        \node at (0.55,-0.18) {$1$};
+        \node at (0,0.78) {$1$};
+        \node at (0,-0.05) {$1$};
+
+        \node at (0,-1.8) {$(A\triangle B)\triangle C$};
+    \end{scope}
+\end{tikzpicture}
+\end{center}
+
+The same four regions are selected in both diagrams. Therefore,
+\[
+\boxed{A\triangle(B\triangle C)=(A\triangle B)\triangle C}.
+\]
+
+% ------------------------------------------------------------
+% 1.5 #2
+% ------------------------------------------------------------
+
+\question \emph{Section 1.5, Exercise 2}
+
+Analyze the logical form of each statement.
+
+\begin{parts}
+
+\part ``Mary will sell her house only if she can get a good price and find a nice apartment.''
+
+Let
+\[
+P=\text{Mary will sell her house},
+\]
+\[
+Q=\text{Mary can get a good price},
+\]
+\[
+R=\text{Mary can find a nice apartment}.
+\]
+The phrase ``$P$ only if $Q$'' means $P\to Q$. Therefore the logical form is
+\[
+\boxed{P\to(Q\land R)}.
+\]
+
+\part ``Having both a good credit history and an adequate down payment is a necessary condition for getting a mortgage.''
+
+Let
+\[
+P=\text{having a good credit history and an adequate down payment},
+\]
+\[
+Q=\text{getting a mortgage}.
+\]
+Since $P$ is a necessary condition for $Q$, getting a mortgage implies $P$. Thus,
+\[
+\boxed{Q\to P}.
+\]
+
+\part ``John will drop out of school, unless someone stops him.''
+
+Let
+\[
+P=\text{John will drop out of school},
+\]
+\[
+Q=\text{someone stops John}.
+\]
+The statement says that if nobody stops John, then he will drop out. Therefore,
+\[
+\boxed{\neg Q\to P}.
+\]
+An equivalent form is
+\[
+\boxed{P\lor Q}.
+\]
+
+\part ``If $x$ is divisible by either 4 or 6, then it isn't prime.''
+
+Let
+\[
+P=\text{$x$ is divisible by 4 or 6},
+\]
+\[
+Q=\text{$x$ is prime}.
+\]
+The statement has the form ``if $P$, then not $Q$,'' so its logical form is
+\[
+\boxed{P\to\neg Q}.
+\]
+
+\end{parts}
+
+% ------------------------------------------------------------
+% 1.5 #8
+% ------------------------------------------------------------
+
+\question \emph{Section 1.5, Exercise 8}
+
+\begin{parts}
+
+\part Show that
+\[
+(P\to Q)\land(Q\to R)
+\]
+is equivalent to
+\[
+(P\to R)\land\big[(P\leftrightarrow Q)\lor(R\leftrightarrow Q)\big].
+\]
+
+We use the equivalences
+\[
+P\to Q\equiv\neg P\lor Q,
+\qquad
+Q\to R\equiv\neg Q\lor R,
+\]
+and
+\[
+P\leftrightarrow Q\equiv(P\land Q)\lor(\neg P\land\neg Q).
+\]
+
+A truth table verifies the equivalence:
+
+\[
+\begin{array}{c c c|c|c}
+P&Q&R&(P\to Q)\land(Q\to R)&
+(P\to R)\land[(P\leftrightarrow Q)\lor(R\leftrightarrow Q)]\\
+\hline
+T&T&T&T&T\\
+T&T&F&F&F\\
+T&F&T&F&F\\
+T&F&F&F&F\\
+F&T&T&T&T\\
+F&T&F&F&F\\
+F&F&T&T&T\\
+F&F&F&T&T
+\end{array}
+\]
+
+The two columns are identical in every possible case for $P,Q,R$. Therefore,
+\[
+\boxed{(P\to Q)\land(Q\to R)
+\equiv
+(P\to R)\land[(P\leftrightarrow Q)\lor(R\leftrightarrow Q)]}.
+\]
+
+\part Show that
+\[
+(P\to Q)\lor(Q\to R)
+\]
+is a tautology.
+
+Using implication,
+\[
+(P\to Q)\lor(Q\to R)
+\equiv
+(\neg P\lor Q)\lor(\neg Q\lor R).
+\]
+By associativity and commutativity of $\lor$,
+\[
+(\neg P\lor Q)\lor(\neg Q\lor R)
+\equiv
+\neg P\lor Q\lor\neg Q\lor R.
+\]
+Since
+\[
+Q\lor\neg Q\equiv T,
+\]
+we get
+\[
+\neg P\lor T\lor R\equiv T.
+\]
+Therefore,
+\[
+\boxed{(P\to Q)\lor(Q\to R)}
+\]
+is a tautology.
+
+\end{parts}
+
+% ------------------------------------------------------------
+% 1.5 #12
+% ------------------------------------------------------------
+
+\question \emph{Section 1.5, Exercise 12}
+
+Determine which of the following formulas are equivalent:
+
+\[
+\begin{aligned}
+(a)&\quad P\to(Q\to R),\\
+(b)&\quad Q\to(P\to R),\\
+(c)&\quad (P\to Q)\land(P\to R),\\
+(d)&\quad (P\land Q)\to R,\\
+(e)&\quad P\to(Q\land R).
+\end{aligned}
+\]
+
+First simplify each formula.
+
+For (a),
+\[
+\begin{aligned}
+P\to(Q\to R)
+&\equiv \neg P\lor(\neg Q\lor R)\\
+&\equiv \neg P\lor\neg Q\lor R.
+\end{aligned}
+\]
+
+For (b),
+\[
+\begin{aligned}
+Q\to(P\to R)
+&\equiv \neg Q\lor(\neg P\lor R)\\
+&\equiv \neg P\lor\neg Q\lor R.
+\end{aligned}
+\]
+
+For (c),
+\[
+\begin{aligned}
+(P\to Q)\land(P\to R)
+&\equiv(\neg P\lor Q)\land(\neg P\lor R)\\
+&\equiv\neg P\lor(Q\land R).
+\end{aligned}
+\]
+This is equivalent to (e).
+
+For (d),
+\[
+(P\land Q)\to R
+\equiv\neg(P\land Q)\lor R
+\equiv\neg P\lor\neg Q\lor R.
+\]
+
+For (e),
+\[
+P\to(Q\land R)
+\equiv\neg P\lor(Q\land R).
+\]
+
+Thus,
+\[
+\boxed{(a)\equiv(b)\equiv(d)}
+\]
+and
+\[
+\boxed{(c)\equiv(e)}.
+\]
+
+The two groups are not equivalent to each other.
+
+\end{questions}
+
+\end{document}
