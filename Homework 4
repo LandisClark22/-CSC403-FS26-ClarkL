@@ -1,0 +1,146 @@
+\documentclass[11pt]{article}
+\usepackage[margin=0.9in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fancyhdr,microtype,enumitem}
+\usepackage[hidelinks]{hyperref}
+\pagestyle{fancy}\fancyhf{}\lhead{CSC403 Math Research}\rhead{Chapter 4: Mathematical Induction}\cfoot{\thepage}
+\setlength{\headheight}{14pt}\setlength{\parindent}{0pt}\setlength{\parskip}{5pt}
+\newcommand{\exercise}[1]{\section*{Exercise #1}}
+\title{\textbf{Chapter 4 Homework}\\[3pt]\large Mathematical Induction}
+\author{Landis Clark}
+\date{Due: October 21, 2026}
+\begin{document}\maketitle
+\noindent\textit{Chapter 4 exercises from \emph{Proof and the Art of Mathematics}.}
+
+\exercise{4.1}
+\textbf{Problem.} Show by induction that $2^n<n!$ for every integer $n\ge 4$.
+\begin{proof}
+Let $P(n)$ be the assertion $2^n<n!$ for $n\ge4$.
+
+\textbf{Base case.} At $n=4$, we have $2^4=16<24=4!$, so $P(4)$ holds.
+
+\textbf{Inductive step.} Suppose $P(k)$ holds for some integer $k\ge4$; that is, $2^k<k!$. Multiplying both sides by $2$ gives
+\[2^{k+1}=2\cdot2^k<2k!.\]
+Since $k+1\ge5>2$ and $k!>0$, we also have
+\[2k!<(k+1)k!=(k+1)!.\]
+Combining these inequalities yields $2^{k+1}<(k+1)!$, which is $P(k+1)$. Thus, by induction, the claim holds for every integer $n\ge4$.
+\end{proof}
+
+\exercise{4.3}
+\textbf{Problem.} For the Fibonacci numbers $f_0=0$, $f_1=1$, and $f_{n+2}=f_{n+1}+f_n$, prove that
+\[\sum_{i=0}^{n}f_i=f_{n+2}-1 \qquad(n\ge0).\]
+\begin{proof}
+Let $P(n)$ denote the stated identity.
+
+\textbf{Base case.} When $n=0$, the left side is $f_0=0$, and the right side is $f_2-1=1-1=0$. Hence $P(0)$ is true.
+
+\textbf{Inductive step.} Assume that $P(k)$ is true for some $k\ge0$, meaning $\sum_{i=0}^k f_i=f_{k+2}-1$. Then
+\begin{align*}
+\sum_{i=0}^{k+1}f_i
+ &=\left(\sum_{i=0}^k f_i\right)+f_{k+1}\\
+ &=f_{k+2}-1+f_{k+1} &&\text{(inductive hypothesis)}\\
+ &=f_{k+3}-1 &&\text{(Fibonacci recurrence)}.
+\end{align*}
+This is $P(k+1)$. Therefore the identity holds for all integers $n\ge0$ by induction.
+\end{proof}
+
+\exercise{4.5}
+\textbf{Problem.} Consider the Fibonacci-type sequence beginning with $0,2$ and obeying the same recurrence. Find the counterpart to Theorem 25, and generalize it. Theorem 25 states $\sum_{i=0}^{n}f_i^2=f_nf_{n+1}$.
+\begin{proof}
+Write $g_0=0$, $g_1=2$, and $g_{n+2}=g_{n+1}+g_n$. Its first terms are $0,2,2,4,6,10,\ldots$. Because $g_n=2f_n$ for every $n$ (both sequences satisfy the same recurrence and the initial terms have this relation), Theorem 25 gives
+\[
+\sum_{i=0}^n g_i^2
+ =4\sum_{i=0}^n f_i^2
+ =4f_nf_{n+1}
+ =g_ng_{n+1}.
+\]
+Thus the identity still holds for the sequence starting with $0,2$.
+
+More generally, suppose $g_0=a$, $g_1=b$, and $g_{n+2}=g_{n+1}+g_n$. We claim that for every $n\ge0$,
+\[\boxed{\displaystyle\sum_{i=0}^n g_i^2=g_ng_{n+1}+a(a-b).}\]
+We prove this by induction. At $n=0$, the right side equals $ab+a(a-b)=a^2=g_0^2$, so the base case holds. Suppose the formula holds at $n=k$. Adding $g_{k+1}^2$ gives
+\begin{align*}
+\sum_{i=0}^{k+1}g_i^2
+ &=g_kg_{k+1}+a(a-b)+g_{k+1}^2\\
+ &=g_{k+1}(g_k+g_{k+1})+a(a-b)\\
+ &=g_{k+1}g_{k+2}+a(a-b),
+\end{align*}
+where the last equality follows from the defining recurrence. This is the desired formula for $k+1$, so the general identity follows by induction.
+
+In particular, whenever $a=0$, the correction term vanishes. Hence \emph{every} Fibonacci-type sequence beginning $0,b$ satisfies $\sum_{i=0}^n g_i^2=g_ng_{n+1}$.
+\end{proof}
+
+\exercise{4.7}
+\textbf{Problem.} Show by induction that a finite set containing $n$ elements has exactly $2^n$ subsets.
+\begin{proof}
+We induct on the number $n$ of elements in the set.
+
+\textbf{Base case.} When $n=0$, the set is empty, and its only subset is $\varnothing$. Since $1=2^0$, the claim holds.
+
+\textbf{Inductive step.} Assume that every set of $k$ elements has exactly $2^k$ subsets. Let $A$ be a set of $k+1$ elements, and choose an element $x\in A$. Put $B=A\setminus\{x\}$; then $B$ has $k$ elements and therefore $2^k$ subsets by the inductive hypothesis.
+
+Every subset of $A$ either excludes $x$ or includes $x$. The subsets excluding $x$ are exactly the subsets of $B$, so there are $2^k$ of them. Each subset containing $x$ arises uniquely by adjoining $x$ to a subset of $B$, so there are another $2^k$. These cases are disjoint and exhaust all subsets of $A$. Consequently, $A$ has $2^k+2^k=2^{k+1}$ subsets. The result follows for all $n\ge0$ by induction.
+\end{proof}
+
+\exercise{4.9}
+\textbf{Problem.} Prove that for every positive integer $n$,
+\[\sum_{i=1}^n\frac{1}{i(i+1)}=\frac{n}{n+1}.\]
+\begin{proof}
+We prove the formula by induction on $n\ge1$.
+
+\textbf{Base case.} For $n=1$, the sum is $\frac1{1\cdot2}=\frac12=\frac1{1+1}$, as required.
+
+\textbf{Inductive step.} Assume $\sum_{i=1}^k\frac1{i(i+1)}=\frac{k}{k+1}$ for some $k\ge1$. Then
+\begin{align*}
+\sum_{i=1}^{k+1}\frac1{i(i+1)}
+ &=\frac{k}{k+1}+\frac1{(k+1)(k+2)}\\
+ &=\frac{k(k+2)+1}{(k+1)(k+2)}\\
+ &=\frac{k^2+2k+1}{(k+1)(k+2)}\\
+ &=\frac{(k+1)^2}{(k+1)(k+2)}=\frac{k+1}{k+2}.
+\end{align*}
+This is the claimed formula at $k+1$. Therefore the identity is true for all positive integers $n$.
+\end{proof}
+
+\exercise{4.13}
+\textbf{Problem.} Decide whether the statement ``Every flying polka-dotted elephant in this room is smoking a cigar'' is true or false.
+\begin{proof}
+The sentence has the logical form $\forall x\,(P(x)\Rightarrow Q(x))$, where $P(x)$ means that $x$ is a flying polka-dotted elephant in this room, and $Q(x)$ means that $x$ is smoking a cigar. Assuming that there are no flying polka-dotted elephants in this room, there is no object for which $P(x)$ is true. Therefore there can be no counterexample satisfying $P(x)$ but not $Q(x)$. Under that ordinary assumption, the statement is \emph{true vacuously}. It does not assert that such an elephant exists.
+\end{proof}
+
+\exercise{4.15}
+\textbf{Problem.} Explain the flaw in an induction argument that claims the harmonic series $\sum_{i=1}^{\infty}1/i$ has a finite sum because each finite partial sum $S(n)=\sum_{i=1}^{n}1/i$ is finite.
+\begin{proof}
+The induction correctly establishes that $S(n)<\infty$ for \emph{each finite integer} $n$. It does not establish that $S(n)$ is bounded above by a single finite constant that works for every $n$. In symbols, the statement
+\[\forall n\in\mathbb N,\quad S(n)<\infty\]
+does not imply
+\[\exists M<\infty\ \forall n\in\mathbb N,\quad S(n)\le M.\]
+The induction principle proves statements indexed by natural numbers; it does not create a final natural number called ``infinity.''
+
+Indeed, the harmonic partial sums are unbounded. Grouping terms after the first gives
+\[
+S(2^m)=1+\frac12+\left(\frac13+\frac14\right)+\left(\frac15+\cdots+\frac18\right)+\cdots.
+\]
+For each $j=1,\ldots,m$, the block from $i=2^{j-1}+1$ through $i=2^j$ has $2^{j-1}$ terms, each at least $1/2^j$, so each block sums to at least $1/2$. Hence $S(2^m)\ge1+\frac m2$, which grows without bound as $m\to\infty$. Thus every partial sum is finite, but the infinite series diverges. The alleged proof incorrectly confuses these two different claims.
+\end{proof}
+
+\exercise{4.17}
+\textbf{Problem.} Establish the equivalence of the least-number principle, ordinary induction, and strong induction.
+\begin{proof}
+We work with the nonnegative integers $\mathbb N_0$. We show the implications
+\[
+\text{least-number principle}\ \Longrightarrow\ \text{ordinary induction}
+\ \Longrightarrow\ \text{strong induction}\ \Longrightarrow\ \text{least-number principle}.
+\]
+This proves that any one of the principles implies the other two.
+
+\textbf{Least-number principle $\Rightarrow$ ordinary induction.} Assume the least-number principle. Suppose $P(0)$ is true and $P(n)\Rightarrow P(n+1)$ for every $n\ge0$. If $P$ were false somewhere, the set $C=\{n\in\mathbb N_0:P(n)\text{ is false}\}$ would be nonempty and have a least element $m$. Because $P(0)$ is true, $m>0$. By minimality, $P(m-1)$ is true. The inductive implication then forces $P(m)$ to be true, a contradiction. Therefore $C$ is empty, and $P(n)$ holds for all $n$.
+
+\textbf{Ordinary induction $\Rightarrow$ strong induction.} Assume ordinary induction. Suppose $P(0)$ is true and, for each $n\ge0$, the truth of $P(j)$ for every $0\le j\le n$ implies $P(n+1)$. Define the new statement
+\[Q(n):\quad P(0)\wedge P(1)\wedge\cdots\wedge P(n).\]
+By assumption, $Q(0)$ is true. If $Q(n)$ holds, then $P(0),\ldots,P(n)$ all hold; the strong-induction hypothesis gives $P(n+1)$. Thus $Q(n+1)$ holds. Ordinary induction proves $Q(n)$ for every $n$, and hence $P(n)$ for every $n$. This is the strong induction principle.
+
+\textbf{Strong induction $\Rightarrow$ least-number principle.} Assume strong induction and suppose, for a contradiction, that a nonempty subset $A\subseteq\mathbb N_0$ has no least member. Let $P(n)$ assert $n\notin A$. The statement $P(0)$ is true, because if $0\in A$ it would be the least member of $A$. Now assume $P(j)$ for every $0\le j<n$. If $n\in A$, then $n$ would be the least member of $A$, contradicting the assumption. Hence $P(n)$ holds. By strong induction, every $n$ lies outside $A$, which contradicts the assumption that $A$ is nonempty. Therefore every nonempty subset of $\mathbb N_0$ has a least element.
+
+Since we have proved all three implications in a cycle, the three principles are equivalent. The same argument applies to positive integers after shifting the starting index from $0$ to $1$.
+\end{proof}
+\end{document}
