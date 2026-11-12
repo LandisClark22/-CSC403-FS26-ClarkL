@@ -13,7 +13,7 @@
 module Proofs-Applied where
 
 open import Equality
-open import Proofs
+open import Proofs-Answers
 
 -- Supplied Unit 2 prerequisites (not exercises).
 data Nat : Set where
