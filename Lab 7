@@ -1,3 +1,4 @@
+
 ----------------------------------------
 -- Agda Lab : Monus and Algorithms
 ----------------------------------------
@@ -20,7 +21,7 @@ module Nat-Monus where
 
 open import Equality
 open import Proofs-Answers
-open import Proofs-Applied using
+open import Proofs-Applied-Answers using
     (Nat; zero; succ; _+_; zero-add; add-zero; add-succ; add-comm; zero-ne-succ)
 
 -- Supplied Unit 2 theorem: addition is associative.
@@ -271,4 +272,3 @@ monus-boss = pair
 
 -- Selected exercise progression adapted from Algorithm World:
 -- https://github.com/leanprover-community/NNG4/tree/main/Game/Levels/Algorithm
-
